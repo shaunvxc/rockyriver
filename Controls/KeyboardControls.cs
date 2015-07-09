@@ -52,24 +52,15 @@ public class KeyboardControls : MonoBehaviour
 				lowerTouchBoundary = Screen.height - diff; // (Screen.height - 100F);	
 		
 				pauseButtonX = PauseButton.Instance.getXPosition ();
-		
-				if (!PlayerPrefs.HasKey ("Controls")) {
-						normal = true;
-				} else {
-						if (PlayerPrefs.GetInt ("Controls") == 0) {
-								normal = true;
-						} else { 
-								normal = false;
-						}
-				}
+
 		}
 	
 		void Update ()
 		{
 				// for the pause button
-				if (alive && Time.timeScale != 0 || (Time.timeScale == 0 && !firstMoveMade)) { //  && PanchoRiver.Instance.shouldStartGame())) {
+				if (alive && Time.timeScale != 0 || (Time.timeScale == 0 && !firstMoveMade)) { 
 
-						if (!canoe.isMoving ()) {
+						
 								
 								if (!firstMoveMade && Input.anyKeyDown) { 
 										startRiver ();
@@ -80,44 +71,29 @@ public class KeyboardControls : MonoBehaviour
 										canoe.haltRiverForceMovement ();
 
 										if (Input.GetKeyDown (KeyCode.LeftArrow) && !moved) { 
-												
-												if (normal) { 
-													canoe.swimLeft ();						
-												} else {
-													canoe.swimRight ();
-												}
-
+												canoe.swimLeft ();						
 												moved = true;				
 												moveLeft = true;
 										
-												//			moveRight = false;
 										} else if (Input.GetKeyDown (KeyCode.RightArrow) && !moved) {
-										
-												if (normal) { 
-														canoe.swimRight ();						
-												} else {
-														canoe.swimLeft ();
-												}
+												canoe.swimRight ();						
 												moved = true;
 												moveRight = true;
-												//			moveLeft = false;
 										}
 								} else {
 
 										if (moved && moveLeft) { 
 												moveLeft = false;
 												moved = false;
-												//						moveLeft = false;
 							
 										} else if (moved && moveRight) {
 											
 												moveRight = false;
-
 												moved = false;
 
 										} 
 								}
-						}
+					
 	
 				} else if (PanchoRiver.Instance.shouldStartGame () && canoe.isAlive ()) {
 						alive = true;
